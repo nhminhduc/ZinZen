@@ -1,7 +1,7 @@
 describe("Basic Tests Home Page", () => {
   it("should have Home Page title", () => {
-    cy.visit("/");
     cy.clearLocalStorage();
+    cy.visit("/");
     cy.get('[alt="ZinZen Text Logo"]').should("be.visible");
     cy.contains("Realize");
     cy.contains("dreams");
@@ -13,15 +13,13 @@ describe("Basic Tests Home Page", () => {
   });
 
   it("Theme & Language Selection", () => {
-    cy.visit("/");
     cy.get(".lang-btn1").contains("English").click();
-    cy.get(".themeChoice-btn").first().click();
+    cy.get(".themeChoice-btn-light").click();
   });
 
   it("Default entry page should be MyTime", () => {
-    cy.contains("Skip Intro")
-      .click()
-      .location("pathname")
-      .should("include", "MyTime");
+    cy.contains("Skip Intro").click();
+    cy.location("pathname").should("equal", "/");
+    cy.get(".MyTime_container").should("be.visible");
   });
 });
